@@ -1,0 +1,21 @@
+---
+title: Récits de sorties
+permalink: /recits/
+layout: default
+---
+<div class="page-head"><div class="wrap"><div class="eyebrow">Récits de sorties</div><h1>Ce que nous avons vécu</h1></div></div>
+<div class="wrap">
+<div class="filters" role="group" aria-label="Filtrer par activité">
+<button type="button" data-filtre="" aria-pressed="true">Tout</button>
+{% assign activites = site.posts | map: "activite" | uniq | sort %}
+{% for a in activites %}<button type="button" data-filtre="{{ a }}" aria-pressed="false">{{ a }}</button>{% endfor %}
+</div>
+<div class="cards">
+{% for p in site.posts %}
+<a class="card" href="{{ p.url | relative_url }}" data-activite="{{ p.activite }}">
+<div class="card-photo">{% if p.image %}<img src="{{ p.image }}" alt="" loading="lazy">{% endif %}<span class="tag">{{ p.activite }}</span></div>
+<div class="card-body"><small>{% include date.html date=p.date %}</small><h3>{{ p.title }}</h3>{% if p.resume %}<p>{{ p.resume }}</p>{% endif %}</div>
+</a>
+{% endfor %}
+</div>
+</div>

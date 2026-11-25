@@ -1,0 +1,58 @@
+---
+layout: default
+---
+{% assign recits = site.posts | where_exp: "p", "p.categories contains 'Actualités'" | where_exp: "p", "p.image" %}
+<div class="hero" data-fonds='{{ site.data.fonds | jsonify }}'>
+<div class="bg"><img id="heroBg" src="{{ site.data.fonds | first }}" alt=""></div>
+<div class="wrap">
+<div class="flagbox"><span class="mast"></span>{% include fanion.html %}</div>
+<div class="text">
+<div class="kicker">{{ page.lieu }}</div>
+<h1>{{ page.accroche }}</h1>
+<p>{{ page.sous_titre }}</p>
+<div class="btns"><a class="btn red" href="{{ '/contacts/' | relative_url }}">Rejoindre le club →</a><a class="btn line" href="{{ '/recits/' | relative_url }}">Nos récits de sorties</a></div>
+</div>
+</div>
+</div>
+
+<div class="pillars"><div class="wrap">
+{% for a in page.activites %}<a class="pillar" href="{{ a.lien | relative_url }}"><svg><use href="#i-{{ a.icone }}"/></svg><b>{{ a.titre }}</b><span>{{ a.texte }}</span></a>{% endfor %}
+</div></div>
+
+<section><div class="wrap">
+<div class="sec-head"><div><div class="eyebrow">Récits de sorties</div><h2>Ce que nous avons vécu</h2></div><a href="{{ '/recits/' | relative_url }}">Tous les récits →</a></div>
+<div class="slider" id="stories" aria-roledescription="carrousel" aria-label="Récits de sorties">
+<div class="track">
+{% for p in recits limit: page.nombre_recits %}
+<article class="slide"><img src="{{ p.image }}" alt="" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">{% if p.photos > 1 %}<span class="count">{{ p.photos }} photos</span>{% endif %}
+<div class="cap"><span class="tag">{{ p.activite }}</span><small>{% include date.html date=p.date %}</small><h3><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>{% if p.resume %}<p>{{ p.resume }}</p>{% endif %}<a class="more" href="{{ p.url | relative_url }}">Lire le récit →</a></div></article>
+{% endfor %}
+</div>
+<button class="arrow prev" type="button" aria-label="Récit précédent">‹</button><button class="arrow next" type="button" aria-label="Récit suivant">›</button>
+<div class="dots"></div>
+</div>
+</div></section>
+
+<div class="welcome"><section><div class="wrap">
+<div class="img"><img src="{{ page.image_bienvenue }}" alt="" loading="lazy"></div>
+<div class="prose"><div class="eyebrow">Bienvenue à la SRT</div>
+{{ content }}
+<div class="btns"><a class="btn line" href="{{ '/la-srt/' | relative_url }}">En savoir plus</a></div></div>
+</div></section></div>
+
+<section><div class="wrap team-wrap">
+<div><div class="eyebrow">Comité directeur</div><h2 class="h-team">Un chef de bord, un équipage enthousiaste</h2><p class="muted">Les bénévoles qui font vivre le club toute l'année.</p><p><a class="more-link" href="{{ '/organigramme/' | relative_url }}">Toute l'équipe →</a></p></div>
+<div class="team">{% for m in page.comite %}<div class="member">{% if m.photo %}<img src="{{ m.photo }}" alt="">{% else %}<i></i>{% endif %}<b>{{ m.nom }}</b><span>{{ m.role }}</span></div>{% endfor %}</div>
+</div></section>
+
+<section class="partners-sec"><div class="wrap">
+<div class="sec-head"><div><div class="eyebrow">Partenaires</div><h2>Ils nous accompagnent</h2></div></div>
+<div class="partners">{% for p in page.partenaires %}<span>{{ p }}</span>{% endfor %}</div>
+</div></section>
+
+<section class="join"><div class="wrap">
+<h2>Envie de monter à bord ?</h2>
+<p>Voile ou moteur, régatier ou pêcheur, débutant ou loup de mer : venez nous rencontrer à la darse nord.</p>
+<a class="btn" href="{{ '/contacts/' | relative_url }}">Adhérer à la SRT →</a>
+</div></section>
+{% include icones.html %}

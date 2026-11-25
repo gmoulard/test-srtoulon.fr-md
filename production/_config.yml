@@ -1,0 +1,33 @@
+title: Société des Régates de Toulon
+short_title: SRT
+description: Club de voile et de moteur de la darse nord du port de Toulon. Régates, pêche, animations.
+lang: fr
+url: "https://gmoulard.github.io"
+baseurl: "/test-srtoulon.fr-md"
+
+permalink: /recits/:title/
+timezone: Europe/Paris
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+adresse: "2 av. de l'Infanterie de Marine, Quai des Sous-Mariniers, 83000 Toulon"
+telephone: "04 94 42 71 37"
+email: "srt.toulon@gmail.com"
+
+menu:
+  - { titre: "La SRT", lien: "/la-srt/" }
+  - { titre: "Récits", lien: "/recits/" }
+  - { titre: "Régates", lien: "/regates/" }
+  - { titre: "Organigramme", lien: "/organigramme/" }
+  - { titre: "Contacts", lien: "/contacts/" }
+
+defaults:
+  - scope: { path: "", type: posts }
+    values: { layout: post }
+  - scope: { path: "" }
+    values: { layout: page }
+
+exclude:
+  - README.md

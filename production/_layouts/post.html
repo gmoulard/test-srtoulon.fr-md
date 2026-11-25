@@ -1,0 +1,20 @@
+---
+layout: default
+---
+<article class="recit">
+<div class="recit-head">
+{% if page.image %}<img class="recit-photo" src="{{ page.image }}" alt="">{% endif %}
+<div class="wrap"><div class="recit-title">
+<span class="tag">{{ page.activite }}</span>
+<small>{% include date.html date=page.date %}</small>
+<h1>{{ page.title }}</h1>
+</div></div>
+</div>
+<div class="wrap"><div class="prose recit-body">
+{{ content }}
+<nav class="recit-nav">
+{% if page.previous %}<a href="{{ page.previous.url | relative_url }}">← {{ page.previous.title }}</a>{% else %}<span></span>{% endif %}
+{% if page.next %}<a href="{{ page.next.url | relative_url }}">{{ page.next.title }} →</a>{% endif %}
+</nav>
+</div></div>
+</article>
