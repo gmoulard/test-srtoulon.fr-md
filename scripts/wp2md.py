@@ -5,11 +5,11 @@ Usage :
 
 Écrit :
 - backupInitialSRT/MD/      tout le contenu publié (articles et pages), tel quel ;
-- production/_posts/        les articles publics, prêts pour Jekyll ;
-- production/_data/fonds.yml les photos de fond tirées au hasard en page d'accueil.
+- docs/_posts/        les articles publics, prêts pour Jekyll ;
+- docs/_data/fonds.yml les photos de fond tirées au hasard en page d'accueil.
 
 Les articles de la catégorie « Accès privé » et les pages réservées aux membres
-ne vont jamais dans production/.
+ne vont jamais dans docs/.
 """
 import re
 import sys
@@ -132,8 +132,8 @@ def main(export):
     }
 
     backup = root / "backupInitialSRT" / "MD"
-    posts_dir = root / "production" / "_posts"
-    for d in (backup / "articles", backup / "pages", posts_dir, root / "production" / "_data"):
+    posts_dir = root / "docs" / "_posts"
+    for d in (backup / "articles", backup / "pages", posts_dir, root / "docs" / "_data"):
         d.mkdir(parents=True, exist_ok=True)
 
     backgrounds = []
@@ -177,12 +177,12 @@ def main(export):
             count["pages"] += 1
             if slug in PRODUCTION_PAGES and not private:
                 name, label = PRODUCTION_PAGES[slug]
-                (root / "production" / f"{name}.md").write_text(front_matter({
+                (root / "docs" / f"{name}.md").write_text(front_matter({
                     "layout": "page", "title": label, "permalink": f"/{name}/", "original": text(item, "link"),
                 }) + md)
                 count["pages_site"] += 1
 
-    (root / "production" / "_data" / "fonds.yml").write_text(
+    (root / "docs" / "_data" / "fonds.yml").write_text(
         "".join(f"- {yaml_str(u)}\n" for u in sorted(set(backgrounds), reverse=True))
     )
     print(count)
